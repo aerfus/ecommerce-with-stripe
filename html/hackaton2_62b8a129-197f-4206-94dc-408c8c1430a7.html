@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA+AI Hackathon 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #64b5f6, #bbdefb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            color: #e3f2fd;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #90caf9;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .team-names {
+            font-size: 1.4em;
+            margin-bottom: 50px;
+            color: #e1f5fe;
+            opacity: 0.9;
+        }
+
+        .agenda {
+            font-size: 1.6em;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .agenda ul {
+            list-style: none;
+        }
+
+        .agenda li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .agenda li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #42a5f5;
+        }
+
+        .problem-list, .benefits-list {
+            font-size: 1.4em;
+            text-align: left;
+            max-width: 800px;
+            margin: 40px auto;
+            line-height: 1.6;
+        }
+
+        .problem-list li, .benefits-list li {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #2196f3;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 40px auto;
+        }
+
+        .section-divider .section {
+            flex: 1;
+            padding: 30px;
+            margin: 0 20px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-divider .section h4 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #81d4fa;
+        }
+
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 15px;
+            background: linear-gradient(45deg, #1976d2, #42a5f5);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #1565c0, #1976d2);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #4fc3f7;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2em;
+            color: #e1f5fe;
+            margin-top: 10px;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            
+            h1 { font-size: 2.5em; }
+            h2 { font-size: 2em; }
+            h3 { font-size: 1.8em; }
+            
+            .section-divider {
+                flex-direction: column;
+            }
+            
+            .result-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">6</span>
+        </div>
+
+        <!-- Slide 1: Title & Agenda -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content fade-in">
+                <h1 class="pulse">QA+AI Hackathon 2025</h1>
+                <div class="team-names">
+                    <strong>Nikita Marunko • Qit Villorante • Itsuki Nakagawa</strong>
+                </div>
+                <div class="agenda">
+                    <h3>Agenda</h3>
+                    <ul>
+                        <li>Introduction</li>
+                        <li>Idea</li>
+                        <li>Problem</li>
+                        <li>Solution</li>
+                        <li>Benefits</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Idea -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2>Our Idea</h2>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 50px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h3 style="font-size: 2.5em; line-height: 1.4; color: #e3f2fd;">
+                        Involving AI as a companion in all software development life cycle phases
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2>Current Problem</h2>
+                <h3 style="color: #ffab91; margin-bottom: 40px;">Relying on AI solely as tool to automate tasks in separate phases</h3>
+                <ul class="problem-list">
+                    <li><strong>Business Analyst:</strong> Requirements documents generation</li>
+                    <li><strong>Development:</strong> Automated code writing</li>
+                    <li><strong>QA:</strong> Assistance on writing test coverage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Solution -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2>Our Solution</h2>
+                <h3>AI as a companion in whole software development life cycle</h3>
+                
+                <div class="section-divider">
+                    <div class="section">
+                        <h4>AS-IS</h4>
+                        <div class="image-container">
+                            <img src="https://miro.medium.com/v2/resize:fit:750/format:webp/1*tGKCSfTfV8E8t4atqrLE4A.png" alt="Current SDLC" />
+                        </div>
+                    </div>
+                    <div class="section">
+                        <h4>TO-BE</h4>
+                        <div class="image-container">
+                            <p style="padding: 40px; background: rgba(255,255,255,0.1); border-radius: 10px; margin: 20px 0;">
+                                Enhanced AI-Integrated SDLC
+                            </p>
+                            <a href="https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/photo_2025-07-19_14-00-35.jpg" 
+                               class="link-button" target="_blank">View TO-BE Diagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Results -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2>Actual AI Generated Output</h2>
+                
+                <div class="result-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">67%</span>
+                        <div class="stat-label">Test Coverage</div>
+                    </div>
+                </div>
+
+                <div style="margin: 40px 0;">
+                    <a href="https://github.com/aerfus/ecommerce-with-stripe/tree/team/qit-nikita-itsuki" 
+                       class="link-button" target="_blank">📁 View Project Repository</a>
+                    <a href="https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/image.png" 
+                       class="link-button" target="_blank">📊 View Coverage Report</a>
+                </div>
+
+                <div class="image-container">
+                    <div style="padding: 30px; background: rgba(255,255,255,0.1); border-radius: 15px; border: 2px dashed rgba(255,255,255,0.3);">
+                        <p style="color: #90caf9; font-size: 1.2em;">📸 Local Image: bbbb.png</p>
+                        <p style="font-size: 1em; opacity: 0.8; margin-top: 10px;">
+                            (Local file path: C:\Users\ts-mariqu.villorante\Documents\bbbb.png)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Benefits -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2>Key Benefits</h2>
+                <ul class="benefits-list">
+                    <li>
+                        <strong>🚀 Early Testing</strong><br>
+                        Integrate testing throughout the development process, catching issues before they become costly problems
+                    </li>
+                    <li>
+                        <strong>⚡ Faster Production of Test Documents</strong><br>
+                        AI-powered automation accelerates documentation creation and maintenance
+                    </li>
+                    <li>
+                        <strong>🌐 Language Barrier Reduction</strong><br>
+                        AI-generated plans and documentation break down communication barriers in global teams
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" onclick="previousSlide()">‹ Previous</button>
+            <button class="nav-btn" onclick="nextSlide()">Next ›</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide;
+
+            // Add fade-in animation to slide content
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            const content = activeSlide.querySelector('.slide-content');
+            content.classList.remove('fade-in');
+            setTimeout(() => content.classList.add('fade-in'), 50);
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Touch navigation for mobile
+        let touchStartX = null;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!touchStartX) return;
+            
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > 50) { // Minimum swipe distance
+                if (diff > 0) {
+                    nextSlide(); // Swipe left - next slide
+                } else {
+                    previousSlide(); // Swipe right - previous slide
+                }
+            }
+            
+            touchStartX = null;
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>

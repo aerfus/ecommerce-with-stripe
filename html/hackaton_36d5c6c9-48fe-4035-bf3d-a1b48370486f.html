@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA+AI Hackathon 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f8fafc;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1200px;
+            padding: 60px;
+            text-align: center;
+            animation: slideIn 0.6s ease-out;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #93c5fd;
+            font-weight: 600;
+        }
+
+        .team-names {
+            font-size: 1.4rem;
+            margin: 2rem 0;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .agenda {
+            text-align: left;
+            max-width: 600px;
+            margin: 3rem auto;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .agenda h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #60a5fa;
+        }
+
+        .agenda ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .agenda li {
+            padding: 0.8rem 0;
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .agenda li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-size: 1rem;
+        }
+
+        .problem-list, .benefits-list {
+            text-align: left;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .problem-list ul, .benefits-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .problem-list li, .benefits-list li {
+            padding: 1rem 0;
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            position: relative;
+            padding-left: 3rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .problem-list li:last-child, .benefits-list li:last-child {
+            border-bottom: none;
+        }
+
+        .problem-list li::before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-size: 1.4rem;
+        }
+
+        .benefits-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .solution-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+
+        .solution-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .solution-item h4 {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-item img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-top: 1rem;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .result-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .result-item h4 {
+            color: #60a5fa;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .coverage-highlight {
+            font-size: 2rem;
+            color: #10b981;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .clickable-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 1rem 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .clickable-link:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e3a8a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(15, 23, 42, 0.9);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            color: #e5e7eb;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            color: #60a5fa;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.8rem; }
+            
+            .solution-section, .result-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>QA+AI Hackathon 2025</h1>
+            <div class="team-names">
+                Nikita Marunko • Qit Villorante • Itsuki Nakagawa
+            </div>
+            <div class="agenda">
+                <h3>Agenda</h3>
+                <ul>
+                    <li>Introduction</li>
+                    <li>Idea</li>
+                    <li>Problem</li>
+                    <li>Solution</li>
+                    <li>Benefits</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 2: Idea -->
+        <div class="slide">
+            <h2>💡 Idea</h2>
+            <div style="background: rgba(15, 23, 42, 0.6); padding: 3rem; border-radius: 20px; margin: 2rem auto; max-width: 800px; border-left: 5px solid #3b82f6;">
+                <h3 style="font-size: 2rem; line-height: 1.6; color: #e2e8f0; font-weight: 500;">
+                    Involving AI as a companion in all software development life cycle phases
+                </h3>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem -->
+        <div class="slide">
+            <h2>⚠️ Problem</h2>
+            <h3 style="color: #f59e0b; margin-bottom: 3rem;">Relying on AI solely as tool to Automate tasks in separate phases</h3>
+            <div class="problem-list">
+                <ul>
+                    <li><strong>Business Analyst:</strong> Requirements documents</li>
+                    <li><strong>Development:</strong> Writing code</li>
+                    <li><strong>QA:</strong> Assistance on writing test coverage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Solution -->
+        <div class="slide">
+            <h2>✨ Solution</h2>
+            <h3 style="margin-bottom: 3rem;">AI as a companion in whole software development life cycle</h3>
+            
+            <div class="solution-section">
+                <div class="solution-item">
+                    <h4>AS-IS</h4>
+                    <img src="https://miro.medium.com/v2/resize:fit:750/format:webp/1*tGKCSfTfV8E8t4atqrLE4A.png" alt="Current SDLC Process" />
+                </div>
+                <div class="solution-item">
+                    <h4>TO-BE</h4>
+                   
+                    <div style="margin-top: 1rem;">
+                        <a href="https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/photo_2025-07-19_14-00-35.jpg" class="clickable-link" target="_blank">View Process Diagram</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Result -->
+        <div class="slide">
+            <h2>🚀 Result: Actual AI Generated Output</h2>
+            
+            <div class="result-grid">
+                <div class="result-item">
+                    <h4>Project Repository</h4>
+                    <a href="https://github.com/aerfus/ecommerce-with-stripe/tree/team/qit-nikita-itsuki" class="clickable-link" target="_blank">View Full Project</a>
+                </div>
+                <div class="result-item">
+                    <h4>Test Coverage Achievement</h4>
+                    <div class="coverage-highlight">68% Test Coverage</div>
+                    <a href="https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/image.png" class="clickable-link" target="_blank">View Coverage Report</a>
+                </div>
+            </div>
+            
+                    </div>
+
+        <!-- Slide 6: Benefits -->
+        <div class="slide">
+            <h2>🎯 Benefits</h2>
+            <div class="benefits-list">
+                <ul>
+                    <li><strong>Early Testing:</strong> Identify and resolve issues during the development phase rather than post-deployment</li>
+                    <li><strong>Faster Production of Test Documents:</strong> AI-generated comprehensive test plans and documentation save significant time</li>
+                    <li><strong>Language Barrier Reduction:</strong> AI-generated plans provide clear, standardized communication across diverse development teams</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn active" onclick="goToSlide(1)">1</button>
+        <button class="nav-btn" onclick="goToSlide(2)">2</button>
+        <button class="nav-btn" onclick="goToSlide(3)">3</button>
+        <button class="nav-btn" onclick="goToSlide(4)">4</button>
+        <button class="nav-btn" onclick="goToSlide(5)">5</button>
+        <button class="nav-btn" onclick="goToSlide(6)">6</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 1;
+        const totalSlides = 6;
+
+        function goToSlide(slideNumber) {
+            // Hide current slide
+            document.querySelector('.slide.active').classList.remove('active');
+            document.querySelector('.nav-btn.active').classList.remove('active');
+            
+            // Show new slide
+            const slides = document.querySelectorAll('.slide');
+            const navBtns = document.querySelectorAll('.nav-btn');
+            
+            slides[slideNumber - 1].classList.add('active');
+            navBtns[slideNumber - 1].classList.add('active');
+            
+            currentSlideIndex = slideNumber;
+            document.getElementById('currentSlide').textContent = slideNumber;
+        }
+
+        function nextSlide() {
+            if (currentSlideIndex < totalSlides) {
+                goToSlide(currentSlideIndex + 1);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlideIndex > 1) {
+                goToSlide(currentSlideIndex - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (event.key >= '1' && event.key <= '6') {
+                goToSlide(parseInt(event.key));
+            }
+        });
+
+        // Initialize
+        document.getElementById('totalSlides').textContent = totalSlides;
+    </script>
+</body>
+</html>
