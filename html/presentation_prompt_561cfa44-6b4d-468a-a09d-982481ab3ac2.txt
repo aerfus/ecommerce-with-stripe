@@ -1,0 +1,47 @@
+Slide 1:
+Title: QA+AI Hackaton 2025
+Name: Nikita Marunko, Qit Villorante, Itsuki Nakagawa
+
+Agenda:
+*Introduction:
+*Idea:
+*Problem:
+*Solution:
+*Benefits
+
+Slide 2:
+Idea:
+Involving AI as a companion in all software development life cycle phases
+
+Slide 3: 
+Problem Title:
+Relying on AI solely as tool to Automate tasks in seperate phases
+
+* Business Analyst: requirements documents
+* Development: writing code
+* QA: assistance on writing test coverage
+
+Slide 4:
+Solution Title:
+AI as a companion in whole software development life cycle
+
+AS-IS: Insert this image https://miro.medium.com/v2/resize:fit:750/format:webp/1*tGKCSfTfV8E8t4atqrLE4A.png
+
+To-Be: insert image: "https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/photo_2025-07-19_14-00-35.jpg"
+add this clickable link: https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/photo_2025-07-19_14-00-35.jpg
+
+
+Slide 5:
+Result: Actual AI generated output
+add this clickable link:https://github.com/aerfus/ecommerce-with-stripe/tree/team/qit-nikita-itsuki
+
+Coverage: 67% Test Coverage
+add this clickable link: https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/image.png
+insert image: "https://github.com/aerfus/ecommerce-with-stripe/blob/team/qit-nikita-itsuki/image.png"
+
+
+Slide 6:
+Benefits:
+1) Early Testing
+2) Faster production of test documents
+3) Language Barrier Reduction thru ai generaterad plan
